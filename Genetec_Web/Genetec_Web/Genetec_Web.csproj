@@ -154,6 +154,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Database.cs" />
+    <Compile Include="Models\Item\Modals.cs" />
+    <Compile Include="Models\Item\Model.cs" />
     <Compile Include="Models\Item\Type.cs" />
     <Compile Include="Models\Item\Types.cs" />
     <Compile Include="Models\Parameter.cs" />

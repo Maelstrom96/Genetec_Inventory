@@ -11,12 +11,21 @@ namespace Genetec_Web.Models.Item
     {
         private Types types;
         public Parameters parameters;
-        public int ID { get; }
+        public int ID { get; set; }
         public String Name { get; set; }
         public Boolean BulkQuantity;
         public Boolean CanRent;
 
-        public Type(Types types_class, String name, Boolean bulkQuantity, Boolean canRent, int id = 0)
+        public Type(Types types_class, String name, Boolean bulkQuantity, Boolean canRent)
+        {
+            types = types_class;
+            Name = name;
+            BulkQuantity = bulkQuantity;
+            CanRent = canRent;
+            parameters = new Parameters(this);
+        }
+
+        public Type(Types types_class, String name, Boolean bulkQuantity, Boolean canRent, int id)
         {
             types = types_class;
             ID = id;
@@ -113,7 +122,7 @@ namespace Genetec_Web.Models.Item
 
                 try
                 {
-                    MySqlCommand cmd = new MySqlCommand("Type_Parameter_Add", conn);
+                    MySqlCommand cmd = new MySqlCommand("Type_Parameter_Delete", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("?pid", param.ID);
                     cmd.Parameters["?pid"].Direction = ParameterDirection.Input;
@@ -124,7 +133,7 @@ namespace Genetec_Web.Models.Item
                     Int64 retval = (Int64)cmd.ExecuteNonQuery();
 
                     // If No error in DB
-                    if (retval == 1) parameters.Add(param);
+                    if (retval == 1) parameters.Remove(param);
                 }
                 catch (Exception e)
                 {

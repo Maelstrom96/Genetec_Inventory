@@ -10,7 +10,7 @@ namespace Genetec_Web.Models.Item
     public class Types
     {
         public Parameters parameters = new Parameters();
-        List<Type> types = new List<Type>();
+        public List<Type> types = new List<Type>();
 
         public Types()
         {
@@ -60,6 +60,113 @@ namespace Genetec_Web.Models.Item
 
             //Maybe? 
             parameters.Reset();
+        }
+
+        public void Add(Type type)
+        {
+            MySqlConnection conn = Database.GetConnection();
+
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand("Type_Add", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("?tid", MySqlDbType.Int32));
+                cmd.Parameters["?tid"].Direction = ParameterDirection.Output;
+                cmd.Parameters.AddWithValue("?name", type.Name);
+                cmd.Parameters["?name"].Direction = ParameterDirection.Input;
+                cmd.Parameters.AddWithValue("?bulkQty", type.BulkQuantity);
+                cmd.Parameters["?bulkQty"].Direction = ParameterDirection.Input;
+                cmd.Parameters.AddWithValue("?canRent", type.CanRent);
+                cmd.Parameters["?canRent"].Direction = ParameterDirection.Input;
+
+                conn.Open();
+                Int64 retval = (Int64)cmd.ExecuteNonQuery();
+
+                // If No error in DB
+                if (retval == 1)
+                {
+                    type.ID = (int)cmd.Parameters["?tid"].Value;
+                    if (type.ID != 0) types.Add(type);
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public void Modify(Type type)
+        {
+            MySqlConnection conn = Database.GetConnection();
+
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand("Type_Modify", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("?tid", type.ID);
+                cmd.Parameters["?tid"].Direction = ParameterDirection.Input;
+                cmd.Parameters.AddWithValue("?name", type.Name);
+                cmd.Parameters["?name"].Direction = ParameterDirection.Input;
+                cmd.Parameters.AddWithValue("?bulkQty", type.BulkQuantity);
+                cmd.Parameters["?bulkQty"].Direction = ParameterDirection.Input;
+                cmd.Parameters.AddWithValue("?canRent", type.CanRent);
+                cmd.Parameters["?canRent"].Direction = ParameterDirection.Input;
+
+                conn.Open();
+                Int64 retval = (Int64)cmd.ExecuteNonQuery();
+
+                // If No error in DB
+                if (retval == 1)
+                {
+                    types.Remove(types.Find(x => x.ID == type.ID));
+                    types.Add(type);
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public void Delete(Type type)
+        {
+            Delete(type.ID);
+        }
+
+        public void Delete(int typeID)
+        {
+            MySqlConnection conn = Database.GetConnection();
+
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand("Type_Delete", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("?tid", typeID);
+                cmd.Parameters["?tid"].Direction = ParameterDirection.Input;
+
+                conn.Open();
+                Int64 retval = (Int64)cmd.ExecuteNonQuery();
+
+                // If No error in DB
+                if (retval == 1)
+                    types.Remove(types.Find(x => x.ID == typeID));
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 }
