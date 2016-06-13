@@ -154,6 +154,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Database.cs" />
+    <Compile Include="Models\Inventory\Rental.cs" />
+    <Compile Include="Models\Inventory\Rentals.cs" />
     <Compile Include="Models\Item\Models.cs" />
     <Compile Include="Models\Item\Model.cs" />
     <Compile Include="Models\Item\Type.cs" />
@@ -214,7 +216,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Inventory\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

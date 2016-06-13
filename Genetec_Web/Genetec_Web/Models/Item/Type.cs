@@ -65,7 +65,7 @@ namespace Genetec_Web.Models.Item
                     da.Fill(dt);
 
                     foreach (DataRow row in dt.Rows)
-                        parameters.Add(type.types.parameters.parameters.Find(x => x.ID == int.Parse(row["Parameter_ID"].ToString())));
+                        parameters.Add(type.types.parameters.List.Find(x => x.ID == int.Parse(row["Parameter_ID"].ToString())));
                 }
                 catch (Exception e)
                 {

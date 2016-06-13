@@ -10,7 +10,7 @@ namespace Genetec_Web.Models.Item
     public class Types
     {
         public Parameters parameters = new Parameters();
-        public List<Type> types = new List<Type>();
+        public List<Type> List = new List<Type>();
 
         public Types()
         {
@@ -40,7 +40,7 @@ namespace Genetec_Web.Models.Item
                     Boolean bulkQty = int.Parse(row["BulkQty"].ToString()) == 1;
                     Boolean canRent = int.Parse(row["CanRent"].ToString()) == 1;
 
-                    types.Add(new Type(this, name, bulkQty, canRent, id));
+                    List.Add(new Type(this, name, bulkQty, canRent, id));
                 }
             }
             catch (Exception e)
@@ -55,7 +55,7 @@ namespace Genetec_Web.Models.Item
 
         public void Reset()
         {
-            types.Clear();
+            List.Clear();
             Import();
 
             //Maybe? 
@@ -86,7 +86,7 @@ namespace Genetec_Web.Models.Item
                 if (retval == 1)
                 {
                     type.ID = (int)cmd.Parameters["?tid"].Value;
-                    if (type.ID != 0) types.Add(type);
+                    if (type.ID != 0) List.Add(type);
                 }
             }
             catch (Exception e)
@@ -122,8 +122,8 @@ namespace Genetec_Web.Models.Item
                 // If No error in DB
                 if (retval == 1)
                 {
-                    types.Remove(types.Find(x => x.ID == type.ID));
-                    types.Add(type);
+                    List.Remove(List.Find(x => x.ID == type.ID));
+                    List.Add(type);
                 }
             }
             catch (Exception e)
@@ -157,7 +157,7 @@ namespace Genetec_Web.Models.Item
 
                 // If No error in DB
                 if (retval == 1)
-                    types.Remove(types.Find(x => x.ID == typeID));
+                    List.Remove(List.Find(x => x.ID == typeID));
             }
             catch (Exception e)
             {

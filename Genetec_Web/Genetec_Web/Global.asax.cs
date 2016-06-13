@@ -20,6 +20,18 @@ namespace Genetec_Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             Types types = new Types();
+            Genetec_Web.Models.Item.Models models = new Genetec_Web.Models.Item.Models(ref types);
+
+            Models.Item.Type type = types.List.Find(x => x.ID == 2);
+            Model model = new Model("M4400", "", ref type);
+            //models.Add(model);
+            model.ID = 2;
+            model.Value = "M4400-1";
+            model.Description = "DELL";
+            model.type = types.List.Find(x => x.ID == 1);
+
+            models.Modify(model);
+
             //types.Add(new Models.Item.Type(types, "Bag", true, false));
             //Models.Item.Type type = types.types.Find(x => x.ID == 11);
             //type.Name = "Bags";

@@ -9,7 +9,7 @@ namespace Genetec_Web.Models
 {
     public class Parameters
     {
-        public List<Parameter> parameters = new List<Parameter>();
+        public List<Parameter> List = new List<Parameter>();
 
         public Parameters()
         {
@@ -36,7 +36,7 @@ namespace Genetec_Web.Models
                 da.Fill(dt);
 
                 foreach (DataRow row in dt.Rows)
-                    parameters.Add(new Parameter(int.Parse(row["ID"].ToString()), row["Parameter"].ToString()));
+                    List.Add(new Parameter(int.Parse(row["ID"].ToString()), row["Parameter"].ToString()));
             }
             catch (Exception e)
             {
@@ -53,7 +53,7 @@ namespace Genetec_Web.Models
         /// </summary>
         public void Reset()
         {
-            parameters.Clear();
+            List.Clear();
             Import();
         }
 
@@ -76,7 +76,7 @@ namespace Genetec_Web.Models
                 Int64 retval = (Int64)cmd.ExecuteNonQuery();
 
                 // If No error in DB and a row got deleted
-                if (retval == 1) parameters.RemoveAll(item => ID == item.ID);
+                if (retval == 1) List.RemoveAll(item => ID == item.ID);
             }
             catch (Exception e)
             {
@@ -111,7 +111,7 @@ namespace Genetec_Web.Models
                 if (retval == 1)
                 {
                     id = (int)cmd.Parameters["?pid"].Value;
-                    if (id != 0) parameters.Add(new Parameter(id, value));
+                    if (id != 0) List.Add(new Parameter(id, value));
                 }
             }
             catch (Exception e)
@@ -146,7 +146,7 @@ namespace Genetec_Web.Models
 
                 if (retval == 1)
                 {
-                    Parameter parameter = parameters.Find(x => x.ID == param.ID);
+                    Parameter parameter = List.Find(x => x.ID == param.ID);
                     parameter.Value = param.Value;
                 }
             }
