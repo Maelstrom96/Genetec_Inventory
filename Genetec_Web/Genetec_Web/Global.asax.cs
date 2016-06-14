@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Genetec_Web.Models.Item;
+using Genetec_Web.Models.Active_Directory;
 
 namespace Genetec_Web
 {
@@ -18,6 +19,8 @@ namespace Genetec_Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            List<ADUser> users = ADUsers.GetADUsers();
 
             Types types = new Types();
             Genetec_Web.Models.Item.Models models = new Genetec_Web.Models.Item.Models(ref types);

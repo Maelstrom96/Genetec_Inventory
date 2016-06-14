@@ -138,7 +138,7 @@ namespace Genetec_Web.Models
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("?pid", param.ID);
                 cmd.Parameters["?pid"].Direction = ParameterDirection.Input;
-                cmd.Parameters.AddWithValue("?value", param.Value);
+                cmd.Parameters.AddWithValue("?value", param.Key);
                 cmd.Parameters["?value"].Direction = ParameterDirection.Input;
 
                 conn.Open();
@@ -147,7 +147,7 @@ namespace Genetec_Web.Models
                 if (retval == 1)
                 {
                     Parameter parameter = List.Find(x => x.ID == param.ID);
-                    parameter.Value = param.Value;
+                    parameter.Key = param.Key;
                 }
             }
             catch (Exception e)

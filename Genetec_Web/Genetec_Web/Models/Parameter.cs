@@ -8,12 +8,13 @@ namespace Genetec_Web.Models
     public class Parameter
     {
         public int ID { get; set; }
+        public String Key { get; set; }
         public String Value { get; set; }
 
         public Parameter(int id, String value)
         {
             ID = id;
-            Value = value;
+            Key = value;
         }
     }
 }
