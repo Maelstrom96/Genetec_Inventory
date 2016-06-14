@@ -8,6 +8,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Genetec_Web.Models.Item;
 using Genetec_Web.Models.Active_Directory;
+using Genetec_Web.Models.Email;
+using Genetec_Web.Models.Inventory.Location;
 
 namespace Genetec_Web
 {
@@ -20,6 +22,10 @@ namespace Genetec_Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            Job job = new Job();
+            List<Room> rooms = Rooms.GetRooms();
+
+            /*
             List<ADUser> users = ADUsers.GetADUsers();
 
             Types types = new Types();
@@ -34,6 +40,7 @@ namespace Genetec_Web
             model.type = types.List.Find(x => x.ID == 1);
 
             models.Modify(model);
+            */
 
             //types.Add(new Models.Item.Type(types, "Bag", true, false));
             //Models.Item.Type type = types.types.Find(x => x.ID == 11);

@@ -12,5 +12,14 @@ namespace Genetec_Web.Models.Inventory.Location
         public String Description { get; set; }
         public Building Building { get; set; }
         public short Floor { get; set; }
+
+        public Room(int id, String name, String description, Building building, short floor)
+        {
+            ID = id;
+            Name = name;
+            Description = description;
+            Building = building;
+            Floor = floor;
+        }
     }
 }

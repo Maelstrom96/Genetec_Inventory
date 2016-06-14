@@ -158,11 +158,13 @@
     </Compile>
     <Compile Include="Models\Active Directory\ADUser.cs" />
     <Compile Include="Models\Active Directory\ADUsers.cs" />
-    <Compile Include="Models\E-mail\Job.cs" />
+    <Compile Include="Models\Email\Job.cs" />
     <Compile Include="Models\Inventory\Location\Building.cs" />
     <Compile Include="Models\Inventory\Location\Buildings.cs" />
     <Compile Include="Models\Database.cs" />
+    <Compile Include="Models\Inventory\Location\LocationManager.cs" />
     <Compile Include="Models\Inventory\Location\Room.cs" />
+    <Compile Include="Models\Inventory\Location\Rooms.cs" />
     <Compile Include="Models\Inventory\Rental.cs" />
     <Compile Include="Models\Inventory\Rentals.cs" />
     <Compile Include="Models\Item\Item.cs" />

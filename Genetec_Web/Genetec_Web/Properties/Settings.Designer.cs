@@ -58,5 +58,23 @@ namespace Genetec_Web.Properties {
                 return ((string)(this["Db_Name"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("08:00:00")]
+        public string Email_Time {
+            get {
+                return ((string)(this["Email_Time"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
+        public string Email_SMTP {
+            get {
+                return ((string)(this["Email_SMTP"]));
+            }
+        }
     }
 }

@@ -62,5 +62,7 @@ namespace Genetec_Web.Models.Inventory
             }
             return rentals;
         }
+
+
     }
 }

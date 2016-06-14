@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Genetec_Web.Models.E_mail
+namespace Genetec_Web.Models.Inventory.Location
 {
-    public class Job
+    public class LocationManager
     {
     }
 }
