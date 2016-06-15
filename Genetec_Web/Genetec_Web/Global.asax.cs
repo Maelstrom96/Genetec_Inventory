@@ -23,7 +23,7 @@ namespace Genetec_Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             Job job = new Job();
-            List<Room> rooms = Rooms.GetRooms();
+            LocationManager locationManager = new LocationManager();
 
             /*
             List<ADUser> users = ADUsers.GetADUsers();

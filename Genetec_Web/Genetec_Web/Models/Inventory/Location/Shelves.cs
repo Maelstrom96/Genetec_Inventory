@@ -5,23 +5,27 @@ using System.Data;
 using System.Linq;
 using System.Web;
 
-namespace Genetec_Web.Models
+namespace Genetec_Web.Models.Inventory.Location
 {
-    public class Buildings : List<Building>
+    public class Shelves : List<Shelf>
     {
-        public Buildings()
+        private Rooms Rooms;
+
+        public Shelves(ref Rooms rooms)
         {
-            this.AddRange(GetBuildings());
+            Rooms = rooms;
+
+            this.AddRange(GetShelves());
         }
 
-        public List<Building> GetBuildings()
+        public List<Shelf> GetShelves()
         {
-            List<Building> buildings = new List<Building>();
+            List<Shelf> shelves = new List<Shelf>();
 
             MySqlConnection conn = Database.GetConnection();
             DataTable dt = new DataTable();
             dt.Clear();
-            MySqlCommand cmd = new MySqlCommand("Buildings_List", conn);
+            MySqlCommand cmd = new MySqlCommand("Shelves_List", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             MySqlDataAdapter da = new MySqlDataAdapter();
 
@@ -33,7 +37,11 @@ namespace Genetec_Web.Models
                 da.Fill(dt);
 
                 foreach (DataRow row in dt.Rows)
-                    buildings.Add(new Building(int.Parse(row["ID"].ToString()), row["Name"].ToString(), row["City"].ToString()));
+                {
+                    int room_id = int.Parse(row["Room"].ToString());
+                    Room room = (from r in Rooms where r.ID == room_id select r).First();
+                    shelves.Add(new Shelf(int.Parse(row["ID"].ToString()), ref room, row["Tag"].ToString(), row["Description"].ToString()));
+                }
             }
             catch (Exception e)
             {
@@ -43,7 +51,7 @@ namespace Genetec_Web.Models
             {
                 conn.Close();
             }
-            return buildings;
+            return shelves;
         }
     }
 }

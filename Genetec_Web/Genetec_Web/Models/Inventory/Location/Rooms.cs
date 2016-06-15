@@ -7,11 +7,19 @@ using System.Web;
 
 namespace Genetec_Web.Models.Inventory.Location
 {
-    public class Rooms
+    public class Rooms : List<Room>
     {
-        public static List<Room> cacheRooms;
+        private Buildings Buildings;
 
-        public static List<Room> GetRooms()
+        public Rooms(ref Buildings buildings)
+        {
+            // Save ref to buildings
+            Buildings = buildings;
+
+            this.AddRange(GetRooms());
+        }
+
+        public List<Room> GetRooms()
         {
             List<Room> Rooms = new List<Room>();
 
@@ -31,9 +39,7 @@ namespace Genetec_Web.Models.Inventory.Location
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    Building building;
-                    if (Buildings.cacheBuildings == null) building = Buildings.GetBuildings().Find(x => x.ID == int.Parse(row["Building"].ToString()));
-                    else building = Buildings.cacheBuildings.Find(x => x.ID == int.Parse(row["Building"].ToString()));
+                    Building building = Buildings.Find(x => x.ID == int.Parse(row["Building"].ToString()));
 
                     Rooms.Add(new Room(int.Parse(row["ID"].ToString()), row["Name"].ToString(), row["Description"].ToString(), building, short.Parse(row["Floor"].ToString())));
                 }
@@ -46,8 +52,12 @@ namespace Genetec_Web.Models.Inventory.Location
             {
                 conn.Close();
             }
-            cacheRooms = Rooms;
             return Rooms;
+        }
+
+        public void AddRoom(Room room)
+        {
+
         }
     }
 }
